@@ -1,0 +1,43 @@
+From 072fcdb7a3f54436f2922baf577040fe927b237a Mon Sep 17 00:00:00 2001
+From: prgrmz07 <prgrmz07@163.com>
+Date: Mon, 22 Apr 2024 15:42:43 +0800
+Subject: [PATCH] =?UTF-8?q?linux4=E5=86=85=E6=A0=B8=E6=BA=90=E7=A0=81?=
+ =?UTF-8?q?=E4=B8=AD=E6=B7=BB=E5=8A=A0=E7=9A=84=20=E6=A0=87=E8=AE=B0?=
+ =?UTF-8?q?=E8=B0=8D=E5=87=BD=E6=95=B0?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+---
+ init/main.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/init/main.c b/init/main.c
+index b1ab36fe1a55..e09623f58368 100644
+--- a/init/main.c
++++ b/init/main.c
+@@ -508,12 +508,21 @@ static void __init mm_init(void)
+ 	/* Should be run after espfix64 is set up. */
+ 	pti_init();
+ }
++/* linux4内核源码中添加 标记谍函数
++标记谍函数原型 void flag__spy_func(int arg0int);
++标记谍函数调用语句 flag__spy_func(0x44BB55CC)
++*/
++void __init flag__spy_func(int arg0int){
+ 
++ }
+ asmlinkage __visible void __init start_kernel(void)
+ {
+ 	char *command_line;
+ 	char *after_dashes;
+ 
++	//linux4内核源码中添加 标记谍函数
++	flag__spy_func(0x44BB55CC);
++
+ 	set_task_stack_end_magic(&init_task);
+ 	smp_setup_processor_id();
+ 	debug_objects_early_init();
+-- 
+2.34.1
+
